@@ -54,11 +54,6 @@ Net.prototype = {
     constructor: Net,
 
     // Private Functions
-    checkAndSetParams: function(conf) {
-        _.each(this.netVertices, function(v) {
-            v.checkAndSetParams(conf);
-        });
-    },
     resetRoots: function(rootsList) {
         _.each(this.netVertices, function(v) {
             var rootStatus = _.contains(rootsList, v.id);
@@ -77,6 +72,7 @@ Net.prototype = {
     addEdges: function(edges) {
         _.each(edges, function(e) {
             this.addEdge(e);
+            e.edgeRef = new Edge();
         }.bind(this));
         this.allEdges = edges;
     },
@@ -103,8 +99,15 @@ Net.prototype = {
 
 
     // Public Functions
-
-    // Perform external operations. e.g. 1) setting D3 visual objects 2) sending data to "Melodi Generator" or DMX components
+    // Dynamically change parameters during runtime
+    checkAndSetParams: function(conf) {
+        _.each(this.netVertices, function(v) {
+            v.checkAndSetParams(conf);
+        });
+    },
+    // Perform external operations. e.g. 
+    // 1) setting D3 visual objects 
+    // 2) sending data to "Melodi Generator" or DMX components
     prepareExternalDataForNextCycle: function() {
         this.preCycleOps({allEdges: this.allEdges, allVertices: this.netVertices});
     },
@@ -122,7 +125,13 @@ Net.prototype = {
     determineNetworkEffect: function() {
         _.each(this.netVertices, function(v){v.determineNetworkEffect()});
     },
-    // Relays the state of each edge through a callback 'externalActivationCallback' which is provided by the external consumer
+
+    // Relays the state of each Vertice & Edge through a callback 'externalActivationCallback' 
+    // which is provided by the external consumer
+
+    // todo: this is not necessary - The state of the system can and should be determined
+    //       in 'prepareExternalDataForNextCycle'.
+    //       this is an unnecessary optimization
     relayNetStateToExternalConsumer: function() {
         var currSignalingVertices = this.getSignalingVertices();
         _.each(currSignalingVertices, function(v) {
@@ -142,9 +151,13 @@ Net.prototype = {
         this.externaltick();
     },
 
+    // Used by Layers to determine what is the next phase of the Net.
+    // Used by 'NeuralNetLayer' to determine which node send signals.
     causeNetworkEffect: function() {
         _.each(this.netVertices, function(v){v.causeNetworkEffect()});
     },
+
+
     prepareForNextState: function() {
         _.each(this.netVertices, function(v){v.prepareForNextState()});
     }
