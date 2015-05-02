@@ -1,5 +1,5 @@
 
-function buildFLuideSelfNetwork(graph) {
+function buildFLuideSelfNetwork(graph, modules) {
 	var getGraphVertice = function(idx, coordinates) {
 		var verticeRepresenation = {"name":"[" + (idx-1) + "]","group":(idx-1), "coordinates":coordinates};
 		return [verticeRepresenation];
@@ -40,14 +40,6 @@ function buildFLuideSelfNetwork(graph) {
 	};
 
 	var makeNet = function(netStruct, roots) {
-
-
-		if (isNode) {
-			modules = [fluidServerModule()];
-		} else {
-			modules = [webGLGraphModule()];
-		}
-
 		// Init the Net 
 		myNet = new Net(netStruct, roots, modules);
 

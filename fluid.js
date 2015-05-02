@@ -26,14 +26,14 @@ var HOST = '127.0.0.1';
 var PORT = 69689;
 var clientAPI = createClient();
 
-require(basePath + 'fluidServerModule.js')(clientAPI);
+require(basePath + 'fluidServerModule.js');
 runFluid(networkDef.networkDef);
 
 
 
 
 function runFluid(networkDeffinition){
-	var netToRun = buildFLuideSelfNetwork(networkDeffinition);
+	var netToRun = buildFLuideSelfNetwork(networkDeffinition, [fluidServerModule(clientAPI)]);
 
 	var mainTicker = function() {
 		netToRun.checkAndSetParams(conf);

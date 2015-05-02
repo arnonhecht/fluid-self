@@ -1,6 +1,6 @@
 main = {
 	init: function(networkDeffinition) {
-		var netToRun = buildFLuideSelfNetwork(networkDeffinition);
+		var netToRun = buildFLuideSelfNetwork(networkDeffinition, [webGLGraphModule()]);
 
 		var mainTicker = function() {
 			netToRun.checkAndSetParams(conf);

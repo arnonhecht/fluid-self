@@ -3,6 +3,8 @@ fluidServerModule = function(api) {
 
 	var me = this;
 
+	me.api = api;
+	
 	me.init = function(netStruct) {
 		// Callbacks for the Net 
 		me.preCycleOps = function(netStruct) {
@@ -24,11 +26,14 @@ fluidServerModule = function(api) {
 				});
 			});
 
-			var toSend = {
+			var netToSend = {
 				allEdges: allEdges,
 				allVertices: allVertices
-			}
-			console.log("args: " + JSON.stringify(toSend));
+			};
+
+			var toSend = JSON.stringify(netToSend);
+			console.log("args: " + toSend);
+			me.api.write(toSend);
 	    };
 
 	    me.externalActivationCallback = function(args) {
