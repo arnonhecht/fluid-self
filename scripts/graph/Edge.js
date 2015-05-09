@@ -1,6 +1,7 @@
 function Edge (params) {
     _.extend(this, params);
     this.active = false;
+    this.activeByTouch = false;
     this.isDirty = false;
 };
 
@@ -40,16 +41,20 @@ Edge.prototype = {
   // API for external Coonsumer
   activate: function() {
     if (!this.active && !this.isDirty) { // we do not want to reactivate it into eternity
+      this.setAcivationParams();
+    }
+  },
+  setAcivationParams: function() {
       this.active = true;
       this.isDirty = true;
       var sign = (0.5<Math.random()) ? 1: (-1);
       var activityTime = (this.meanActivityTime + (sign * this.activityTimeDeviation * Math.random())) * 1000;
       if (this.log) console.log('Edge ('+this.originEdge.source+','+this.originEdge.target+') activity time: ' + activityTime/1000 + ' seconds');
       this.ts = (new Date().getTime() + activityTime);
-    }
   },
   deactivate: function() {
     this.active = false;
+    this.activeByTouch = false;
   },
   setPristine: function() {
     this.isDirty = false;
@@ -68,7 +73,12 @@ Edge.prototype = {
 
   },
   isActiveByTouch: function(){
-    return false;
+    return this.activeByTouch;
+  },
+  setActiveByTouch: function() {
+    this.activeByTouch = true;
+    console.log("aaaaa");
+    this.setAcivationParams();
   },
 
   log: false

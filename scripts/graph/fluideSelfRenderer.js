@@ -240,18 +240,21 @@ webGLGraphModule = function() {
 	        	} else {
 	        		resetLineColors(e);
 	        	}
+	        	if (e.edgeRef.isActiveByTouch()) {
+	        		setLineFromRepresentation(e, colorOfTouch);
+	        	}
 	        });
 	        _.each(args.allVertices, function(v){
 	        	setVerticeFromEdgeRepresentation(v, (v.isActive() ? colorActive : colorStaticStart));
 	        });
 
-	        _.each(args.allVertices, function(v){
-	        	if (v.isActiveByTouch()) {
-	        		_.each(_.union(v.outEdges, v.inEdges), function(e){
-	        			setLineFromRepresentation(e, colorOfTouch);
-	        		});
-	        	}
-	        });
+	        // _.each(args.allVertices, function(v){
+	        // 	if (v.isActiveByTouch()) {
+	        // 		_.each(_.union(v.outEdges, v.inEdges), function(e){
+	        // 			setLineFromRepresentation(e, colorOfTouch);
+	        // 		});
+	        // 	}
+	        // });
 	        stats.end();
 	    };
 

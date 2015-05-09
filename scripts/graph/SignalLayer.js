@@ -29,10 +29,8 @@ SignalLayer.prototype = {
         }
         if (this.active && 0==this.cyclesTillTimeout) {
             this.active = false;
-            _.each(this.verticeRef.outEdges, function(edge) {
-                edge.color = this.activeColor;
-            }.bind(this));
-            _.each(this.verticeRef.inEdges, function(edge) {
+            _.each(_.union(this.verticeRef.outEdges, this.verticeRef.inEdges), function(edge) {
+                edge.edgeRef.setActiveByTouch();
                 edge.color = this.activeColor;
             }.bind(this));
         }

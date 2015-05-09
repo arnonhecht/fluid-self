@@ -14,6 +14,7 @@ if (!isNode) {
 	// Init
 	var edgeRepresentation =_.map(networkDef.edges, function(e){return '('+e.s+','+e.t+')'});
 	setViewVal('network_edges_id', edgeRepresentation.join(','));
+	setViewVal('node_activation_id', "1");
 	setViewVal('roots_id', _.each(conf.roots, function(v) {return (v+1)}));
 	setViewVal('cycle_time_id', conf.cycleTime);
 	setViewVal('threshold_id', conf.threshold);
