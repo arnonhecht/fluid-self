@@ -112,7 +112,7 @@ webGLGraphModule = function() {
 			return '('+v+')';
 		}
 		function getVertice(v, color) {
-			var geometry = new THREE.SphereGeometry( 3, 6, 6 );
+			var geometry = new THREE.SphereGeometry( 1, 6, 6 );
 			var material = new THREE.MeshLambertMaterial( {color: color} );
 			var sphere = new THREE.Mesh( geometry, material );
 

@@ -89,22 +89,22 @@ Net.prototype = {
     getV: function(eId) {
         return _.findWhere(this.netVertices, {id: eId});
     },
-    findEdge: function(edges, source, target) {
-        return _.find(edges, function(e){
-            // return (e.source.group==source && e.target.group==target);  -  Was changed along with the removal of D3..
-            return (e.source==source && e.target==target);
-        });
-    },
-    getSignalingVertices: function() {
-        return _.filter(this.netVertices, function(v) {
-            return v.isSignaling();
-        });
-    },
-    getActiveVertices: function() {
-        return _.filter(this.netVertices, function(v) {
-            return v.isActive();
-        });
-    },
+    // findEdge: function(edges, source, target) {
+    //     return _.find(edges, function(e){
+    //         // return (e.source.group==source && e.target.group==target);  -  Was changed along with the removal of D3..
+    //         return (e.source==source && e.target==target);
+    //     });
+    // },
+    // getSignalingVertices: function() {
+    //     return _.filter(this.netVertices, function(v) {
+    //         return v.isSignaling();
+    //     });
+    // },
+    // getActiveVertices: function() {
+    //     return _.filter(this.netVertices, function(v) {
+    //         return v.isActive();
+    //     });
+    // },
 
 
 
