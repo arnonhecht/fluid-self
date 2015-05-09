@@ -12,7 +12,7 @@ Edge.prototype = {
   activityTimeDeviation: 0.5,
 
 
-  // Public Functions
+  // Public Functionsa
   checkAndSetParams: function(conf) {
 
   },
@@ -67,9 +67,12 @@ Edge.prototype = {
   isSignaling: function() {
 
   },
+  isActiveByTouch: function(){
+    return false;
+  },
 
   log: false
-};		
+};    
 
 
 

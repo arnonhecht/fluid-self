@@ -52,7 +52,7 @@ Vertice.prototype = {
     return this.layers.getLayer('SignalLayer').isActive();
   },
   triggerSignal: function() {
-    layers.getLayer('SignalLayer').triggerSignal();
+    this.layers.getLayer('SignalLayer').triggerSignal();
   },
 
   // Utility functions
@@ -61,7 +61,7 @@ Vertice.prototype = {
       return (e.source==source && e.target==target);
     });
   }
-};		
+};    
 
 
 

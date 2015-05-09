@@ -45,9 +45,17 @@ sensorAdapterModule = function() {
 	var me = this;
 	me.name = _moduleName;
 	me.api = createListener(net, HOST, PORT, 'fluidServerModule', function(data) {
-	    console.log("DATA from : 'sensorAdapterModule'" + data);
-	    var sanitizedData = parseInt((a.split(':')[1].split(',')[0]).replace(/ /g, ''));
-	    me.signalsCache.push(sanitizedData);
+	    console.log("DATA from : 'sensorAdapterModule':  " + data);
+	    var str = (data.toString().split(',')[0])
+	    var res = '';
+	    _.each(str, function(c){
+	    	if (!_.isNaN(parseInt(c))) {
+		    	res += c;	    		
+	    	}
+	    });
+	    if (!_.isNaN(parseInt(res))) {
+		    me.signalsCache.push(parseInt(res));
+	    }
 	});
 
 	me.init = function(netStruct) {
@@ -59,6 +67,7 @@ sensorAdapterModule = function() {
 					v.triggerSignal();
 				}
 			});
+			me.signalsCache = [];
 	    };
 
 	    me.externalActivationCallback = function(args) {
