@@ -77,7 +77,6 @@ Edge.prototype = {
   },
   setActiveByTouch: function() {
     this.activeByTouch = true;
-    console.log("aaaaa");
     this.setAcivationParams();
   },
 
