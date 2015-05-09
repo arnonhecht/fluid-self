@@ -1,7 +1,7 @@
 var net = require('net');   
 
 var HOST = '127.0.0.1';
-var PORT = 69699;
+var PORT = 6699;
 
 // Create a server instance, and chain the listen function to it
 // The function passed to net.createServer() becomes the event handler for the 'connection' event

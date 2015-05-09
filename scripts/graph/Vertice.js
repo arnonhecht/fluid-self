@@ -51,6 +51,9 @@ Vertice.prototype = {
   isActiveByTouch: function() {
     return this.layers.getLayer('SignalLayer').isActive();
   },
+  triggerSignal: function() {
+    layers.getLayer('SignalLayer').triggerSignal();
+  },
 
   // Utility functions
   getEdge: function(source, target) {

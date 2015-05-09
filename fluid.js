@@ -22,18 +22,22 @@ for (var i=0; i<jsFiles.length; i++) {
 
 
 
-var HOST = '127.0.0.1';
-var PORT = 69699;
-var clientAPI = createClient();
+var clientAPI = createClient('127.0.0.1', 6699, 'fluidServerModule', function(data) {
+	    console.log("DATA from : 'fluidServerModule'" + data);
+});
 
-require(basePath + 'fluidServerModule.js')();
-runFluid(networkDef.networkDef);
+var modulesArr = [
+require(basePath + 'sensorAdapterModule.js').sensorAdapterModule(),
+require(basePath + 'fluidServerModule.js').fluidServerModule(clientAPI)
+];
+
+runFluid(networkDef.networkDef, modulesArr);
 
 
 
-
-function runFluid(networkDeffinition){
-	var netToRun = buildFLuideSelfNetwork(networkDeffinition, [fluidServerModule(clientAPI)]);
+function runFluid(networkDeffinition, modules){
+	// var modulesArr = [fluidServerModule(clientAPI)];
+	var netToRun = buildFLuideSelfNetwork(networkDeffinition, modules);
 
 	var mainTicker = function() {
 		netToRun.checkAndSetParams(conf);
@@ -61,14 +65,14 @@ function runFluid(networkDeffinition){
 
 
 
-function createClient() {
+function createClient(host, port, name, dataFunction) {
 	var client = new net.Socket();
 
-	client.connect(PORT, HOST, function() {
-	    console.log('CONNECTED TO: ' + HOST + ':' + PORT);
+	client.connect(port, host, function() {
+	    console.log('CONNECTED TO: ' + host + ':' + port);
 	    // sendNextDataLoop();
 	    // Write a message to the socket as soon as the client is connected, the server will receive it as message from the client 
-	    // client.write('I am Chuck Norris!');
+	    client.write('Hello from fluidServer');
 	});
 	function sendNextDataLoop() {
 		// client.write("myNet: " + JSON.stringify(myNet));
@@ -77,25 +81,23 @@ function createClient() {
 	// Add a 'data' event handler for the client socket
 	// data is what the server sent to this socket
 	client.on('data', function(data) {
-	    
-	    console.log('DATA: ' + data);
-	    // Close the client socket completely
-	    // client.destroy();
-	    
+	    dataFunction(data);
 	});
 
 	// Add a 'close' event handler for the client socket
 	client.on('close', function() {
-	    console.log('Writer: Connection closed...');
-	    setTimeout(createClient, 1000);
+	    console.log('Writer: Connection closed... (' + host + ':' + port + ')');
+	    setTimeout(function() {
+	    	createClient(host, port, name, dataFunction)
+	    }, 1000);
 	});
 
 	client.on('error', function (e) {
 	  if (e.code == 'EADDRINUSE') {
-	    console.log('Address in use, retrying...');
+	    console.log('Address in use, retrying... (' + host + ':' + port + ')');
 	    setTimeout(function () {
 	      client.close();
-	      client.listen(PORT, HOST);
+	      client.listen(port, host);
 	    }, 1000);
 	  }
 	});

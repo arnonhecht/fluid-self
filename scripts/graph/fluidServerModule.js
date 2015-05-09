@@ -1,7 +1,10 @@
 
+var _moduleName = 'fluidServerModule';
+
 fluidServerModule = function(api) {
 
 	var me = this;
+	me.name = _moduleName;
 
 	me.api = api;
 	
@@ -13,7 +16,6 @@ fluidServerModule = function(api) {
 				allVertices.push({
 					id: v.id,
 					active: v.isActive()
-
 				});
 			});
 
@@ -53,4 +55,4 @@ fluidServerModule = function(api) {
 	return me;
 }
 
-module.exports = fluidServerModule;
+module.exports.fluidServerModule = fluidServerModule;

@@ -50,7 +50,7 @@ if (!isNode) {
 		var nodeId = (parseInt(that.value) - 1);
 		if (_.isNumber(nodeId)) {
 			var v = globalNetObject.getV(nodeId);
-			if (v) v.layers.getLayer('SignalLayer').triggerSignal();
+			if (v) v.triggerSignal();
 		}
 	}
 

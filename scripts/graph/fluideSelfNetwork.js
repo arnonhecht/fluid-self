@@ -40,11 +40,13 @@ function buildFLuideSelfNetwork(graph, modules) {
 	};
 
 	var makeNet = function(netStruct, roots) {
+		console.log("Building the net");
 		// Init the Net 
 		myNet = new Net(netStruct, roots, modules);
 
 		// After the Net is setup init all of the external Modules:
 		_.each(modules, function(module) {
+			console.log("Init module '" +module.name+ "'");
 			// Deep copy
 			// var newObject = jQuery.extend(true, {}, oldObject);
 			module.init(netStruct);
