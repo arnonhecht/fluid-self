@@ -3,7 +3,9 @@ conf = {
 	roots: [0, 10, 20, 30],
 	cycleTime: 80,
 	threshold: 0,
-	verticeProbability: 1
+	verticeProbability: 1,
+	rootProbability: 0.5,
+	activeEdgesLimit: 3
 };
 
 if (!isNode) {

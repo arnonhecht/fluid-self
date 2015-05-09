@@ -22,7 +22,7 @@ fluidServerModule = function(api) {
 				allEdges.push({
 					source: e.source,
 					target: e.target,
-					active: (0.5<Math.random())
+					active: e.edgeRef.isActive()
 				});
 			});
 

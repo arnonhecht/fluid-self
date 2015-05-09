@@ -11,6 +11,8 @@ function NeuralNetLayer (verticeRef, params) {
     this.threshold = params.threshold;
     this.initScore = params.initScore;
     this.currScore = params.initScore;
+    this.rootProbability = params.rootProbability;
+    this.activeEdgesLimit = params.activeEdgesLimit;
     this.verticeProbability = params.verticeProbability;
     this.isRoot = _.contains(params.roots, this.verticeRef.id);
 
@@ -63,7 +65,7 @@ NeuralNetLayer.prototype = {
 
     // Public layer interface to implement
   	updateRoot: function(netState) {
-  		if (this.isRoot && netState.numActiveEdges < 1) {
+  		if (this.isRoot && netState.numActiveEdges < this.activeEdgesLimit && this.rootProbability < Math.random()) {
   			this.updateScore(1);
   		}
   	},
@@ -107,7 +109,6 @@ NeuralNetLayer.prototype = {
 
     prepareForNextState:function (theScoreToAdd)  {
         this.outgoingVertices.length = 0;
-        // this.outgoingEdges.length = 0;
     },
 
 };

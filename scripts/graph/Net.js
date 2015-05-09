@@ -22,6 +22,8 @@ function Net (netStruct, roots, modules) {
                     id: 'NeuralNetLayer',
                     threshold: conf.threshold,
                     verticeProbability: conf.verticeProbability, //0.5,
+                    activeEdgesLimit: conf.activeEdgesLimit,
+                    rootProbability: conf.rootProbability,
                     initScore: 0,
                     roots: roots //[0, 2, 14, 25, 33, 27, 21, 20, 22]
                 }
