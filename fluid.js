@@ -23,7 +23,7 @@ for (var i=0; i<jsFiles.length; i++) {
 
 
 var HOST = '127.0.0.1';
-var PORT = 69689;
+var PORT = 69699;
 var clientAPI = createClient();
 
 require(basePath + 'fluidServerModule.js')();

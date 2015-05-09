@@ -63,6 +63,11 @@
     <textarea type="text" id="network_edges_id" value="300" onkeyup="" style="width: 500px; height: 100px;"></textarea>
     <button onclick="return changeNetworkSettings(event);">Reset Configuration</button>
     <br>
+    <label>Activate Node (Enter to activate)</label>       
+    <input type="text" id="cycle_time_id" value="300" onkeydown="if (event.keyCode == 13) { activateNode(this); return false; }" />
+
+    <button onclick="return changeNetworkSettings(event);">Reset Configuration</button>
+    <br>
     <label>Roots (numbers separated by commas) </label>       <input type="text" id="roots_id" value="300" onkeyup="changeRoots(this)" />
     <br>
     <label>Cycle Time (ms) </label>       <input type="text" id="cycle_time_id" value="300" onkeyup="changeCycleTime(this)" />

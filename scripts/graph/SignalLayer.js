@@ -51,7 +51,11 @@ SignalLayer.prototype = {
         this.active = true;
         this.cyclesTillTimeout = false;
         this.cyclesTillTimeout = 3;
+        console.log("Signal Trigered for node id:" + this.verticeRef.id);
         // setTimeout(this.resetTimeoutPassed.bind(this), 1000);
     },
 
+    isActive: function() {
+        return this.active;
+    }
 };

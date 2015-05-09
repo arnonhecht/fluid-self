@@ -8,6 +8,8 @@ conf = {
 	activeEdgesLimit: 1
 };
 
+
+// todo: Add checks that the data is correct - we don't want the fluid to turn off because of bad input
 if (!isNode) {
 	// Init
 	var edgeRepresentation =_.map(networkDef.edges, function(e){return '('+e.s+','+e.t+')'});
@@ -41,6 +43,14 @@ if (!isNode) {
 			main.init(newNetDef);
 		} catch(e) {
 			return alert('Ooops, you fucked something up... Let Noni know what you did...');
+		}
+	}
+
+	function activateNode(that) {
+		var nodeId = (parseInt(that.value) - 1);
+		if (_.isNumber(nodeId)) {
+			var v = globalNetObject.getV(nodeId);
+			if (v) v.layers.getLayer('SignalLayer').triggerSignal();
 		}
 	}
 

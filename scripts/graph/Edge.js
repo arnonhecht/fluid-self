@@ -44,7 +44,7 @@ Edge.prototype = {
       this.isDirty = true;
       var sign = (0.5<Math.random()) ? 1: (-1);
       var activityTime = (this.meanActivityTime + (sign * this.activityTimeDeviation * Math.random())) * 1000;
-      console.log('Edge ('+this.originEdge.source+','+this.originEdge.target+') activity time: ' + activityTime/1000 + ' seconds');
+      if (this.log) console.log('Edge ('+this.originEdge.source+','+this.originEdge.target+') activity time: ' + activityTime/1000 + ' seconds');
       this.ts = (new Date().getTime() + activityTime);
     }
   },
@@ -67,6 +67,8 @@ Edge.prototype = {
   isSignaling: function() {
 
   },
+
+  log: false
 };		
 
 
