@@ -28,7 +28,7 @@ NeuralNetLayer.prototype = {
 	},
 
   wasActive: function() {
-    return (this.active && this.finishedActive);
+    return (!this.active && !this.finishedActive);
   },
 
 
@@ -36,7 +36,7 @@ NeuralNetLayer.prototype = {
 	updateScore: function (theScoreToAdd)  {
 	  this.currScore += theScoreToAdd;
 	  // this.layers
-	  this.verticeRef.d3Obj.name = this.verticeRef.name + "(" + this.currScore + ")";
+	  // this.verticeRef.d3Obj.name = this.verticeRef.name + "(" + this.currScore + ")";
 	  return false;
 	},
 
@@ -62,17 +62,21 @@ NeuralNetLayer.prototype = {
 
 
     // Public layer interface to implement
-  	updateRoot: function() {
-  		if (this.isRoot) {
+  	updateRoot: function(netState) {
+  		if (this.isRoot && netState.numActiveEdges < 1) {
   			this.updateScore(1);
   		}
   	},
 
-    determineCurrentState:function (theScoreToAdd)  {
-      if (this.active && !this.finishedActive) {
+    determineCurrentState: function (theScoreToAdd)  {
+      if (this.isActive()) {
+        this.active = false;
+      } else if (this.wasActive()) {
         this.finishedActive = true;
+      // } else if (this.active && !this.finishedActive) {
+  		  // this.active = false;
+        // this.finishedActive = true;
       } else {
-  		  this.active = false;
   	    if (this.threshold < this.currScore) {
   	    	this.currScore = this.initScore;
   	    	this.active = true;
@@ -83,20 +87,27 @@ NeuralNetLayer.prototype = {
 
     determineNetworkEffect:function (theScoreToAdd)  {
  		_.each(this.verticeRef.outVertices, function(v) {
-       		if (this.isSignalOut(this.verticeProbability) && this.wasActive()) {
-       			this.outgoingVertices.push(v);
+          var currEdgeRef = this.verticeRef.getEdge(this.verticeRef.id, v.id).edgeRef;
+       		if (this.wasActive() && this.isSignalOut(this.verticeProbability)) {
+            currEdgeRef.activate();
        		} 
+          if (currEdgeRef.wasActive()) {
+            currEdgeRef.setPristine();
+            this.outgoingVertices.push(v);
+          }
         }.bind(this));
     },
 
     causeNetworkEffect:function (theScoreToAdd)  {
        	_.each(this.outgoingVertices, function(v) {
-       			v.layers.getLayer('NeuralNetLayer').updateScore(1);
+       			var verticeNetworkLayer = v.layers.getLayer('NeuralNetLayer');
+            verticeNetworkLayer.updateScore.call(verticeNetworkLayer, 1)
        }.bind(this));
     },
 
     prepareForNextState:function (theScoreToAdd)  {
         this.outgoingVertices.length = 0;
+        // this.outgoingEdges.length = 0;
     },
 
 };

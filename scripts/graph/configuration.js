@@ -1,9 +1,9 @@
 
 conf = {
 	roots: [0, 10, 20, 30],
-	cycleTime: 800,
-	threshold: 1,
-	verticeProbability: 0.8
+	cycleTime: 80,
+	threshold: 0,
+	verticeProbability: 1
 };
 
 if (!isNode) {

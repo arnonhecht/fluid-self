@@ -4,7 +4,6 @@ function Vertice (params) {
     this.inVertices = [];
     this.inEdges = [];
     this.outEdges = [];
-    this.currScore = params.initScore;
     this.outgoingVertices = [];
     this.layers = new Layers(this, params.layers)
 };
@@ -23,8 +22,8 @@ Vertice.prototype = {
   resetRoots: function(rootStatus) {
     this.layers.resetRoots(rootStatus);
   },
-  updateRoots: function() {
-    this.layers.updateRoots();
+  updateRoots: function(netState) {
+    this.layers.updateRoots(netState);
   },
   determineCurrentState: function() {
     this.layers.determineCurrentState();
@@ -47,6 +46,11 @@ Vertice.prototype = {
   isSignaling: function() {
     return this.layers.getLayer('NeuralNetLayer').wasActive();
   },
+  getEdge: function(source, target) {
+    return _.find(this.outEdges, function(e){
+      return (e.source==source && e.target==target);
+    });
+  }
 };		
 
 

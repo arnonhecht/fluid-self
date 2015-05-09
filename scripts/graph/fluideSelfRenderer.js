@@ -3,6 +3,8 @@ webGLGraphModule = function() {
 
 	var me = this;
 
+	var _verticeActivityOn = false;
+
 	var colorStaticStart = 0x3D3D3D; //0x00BFFF;
 	var colorStaticEnd = 0x0F0F0F; //0x00BFFF;
 	var colorActive = 0xF21818;
@@ -210,40 +212,53 @@ webGLGraphModule = function() {
 			colorLine(e, colorStaticStart, colorStaticEnd);
 		}
 		function setLineFromRepresentation(e, color) {
-			colorLine(e, color, colorStaticEnd);
-			setTimeout(function() {
-				colorLine(e, colorStaticStart, color);
-			},(conf.cycleTime/2))
+			colorLine(e, color, color);
+			// colorLine(e, color, colorStaticEnd);
+			// setTimeout(function() {
+				// colorLine(e, colorStaticStart, color);
+			// },(conf.cycleTime/2))
 		}
 		function setVerticeFromEdgeRepresentation(v, color) {
-			var verticeObj = getTreeJSVerticeObject(v.coordinates);
-			verticeObj.theerJSVertice.material.color.setHex(color);
-			verticeObj.theerJSVertice.geometry.__dirtyVertices = true;
-			verticeObj.theerJSVertice.geometry.colorsNeedUpdate = true;
-			verticeObj.theerJSVertice.geometry.verticesNeedUpdate = true
+			if (_verticeActivityOn) {
+				var verticeObj = getTreeJSVerticeObject(v.coordinates);
+				verticeObj.theerJSVertice.material.color.setHex(color);
+				verticeObj.theerJSVertice.geometry.__dirtyVertices = true;
+				verticeObj.theerJSVertice.geometry.colorsNeedUpdate = true;
+				verticeObj.theerJSVertice.geometry.verticesNeedUpdate = true;
+			}
 		}
+
+
 
 		// Callbacks for the Net 
 		me.preCycleOps = function(args) {
 			stats.begin();
 	        _.each(args.allEdges, function(e){
-	        	resetLineColors(e);
+	        	if (e.edgeRef.isActive() || e.edgeRef.wasActive()) {
+	        		setLineFromRepresentation(e, colorActive);
+	        	} else {
+	        		resetLineColors(e);
+	        	}
 	        });
 	        _.each(args.allVertices, function(v){
-	    		setVerticeFromEdgeRepresentation(v, colorStaticStart);
+	        	if (v.isActive()) {
+	    			setVerticeFromEdgeRepresentation(v, colorActive);
+	    		} else {
+	    			setVerticeFromEdgeRepresentation(v, colorStaticStart);
+	    		}
 	        });
 	        stats.end();
 	    };
 
 	    me.externalActivationCallback = function(args) {
 	    	stats.begin();
-	    	if (!_.isEmpty(args.edge)) {
-        		setLineFromRepresentation(args.edge, colorActive);
-        	} else if (!_.isEmpty(args.vertice)) {
-    			setVerticeFromEdgeRepresentation(args.vertice, colorActive);
-        	} else {
-        		throw "'externalActivationCallback' got bad value";
-        	}
+	    	// if (!_.isEmpty(args.edge)) {
+      //   		setLineFromRepresentation(args.edge, colorActive);
+      //   	} else if (!_.isEmpty(args.vertice)) {
+    		// 	setVerticeFromEdgeRepresentation(args.vertice, colorActive);
+      //   	} else {
+      //   		throw "'externalActivationCallback' got bad value";
+      //   	}
         	stats.end();
 	    };
 

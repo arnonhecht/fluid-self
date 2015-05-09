@@ -26,7 +26,7 @@ var HOST = '127.0.0.1';
 var PORT = 69689;
 var clientAPI = createClient();
 
-require(basePath + 'fluidServerModule.js');
+require(basePath + 'fluidServerModule.js')();
 runFluid(networkDef.networkDef);
 
 

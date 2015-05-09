@@ -14,9 +14,9 @@ Layers.prototype = {
     getLayer: function(id) {
 		return _.findWhere(this.layers, {id: id});
     },
-    updateRoots: function() {
+    updateRoots: function(netState) {
         var updateMyRoot = function (l) {
-            l.updateRoot();
+            l.updateRoot(netState);
         };
         _.each(this.layers, updateMyRoot);
     },
