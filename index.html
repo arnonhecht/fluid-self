@@ -67,13 +67,18 @@
     <input type="text" id="node_activation_id" onkeydown="if (event.keyCode == 13) { activateNode(this); return false; }" />
 
     <br>
-    <label>Roots (numbers separated by commas) </label>       <input type="text" id="roots_id" value="300" onkeyup="changeRoots(this)" />
+    <label>Roots (numbers separated by commas) </label>       <input type="text" id="roots_id" onkeyup="changeRoots(this)" />
+    <br><br>
+    <label>Cycle Time (ms) </label>       <input type="text" id="cycle_time_id" onkeyup="changeCycleTime(this)" />
     <br>
-    <label>Cycle Time (ms) </label>       <input type="text" id="cycle_time_id" value="300" onkeyup="changeCycleTime(this)" />
+    <label>Node Threshold  </label>       <input type="text" id="threshold_id" onkeyup="changeNodeThreshold(this)" />
     <br>
-    <label>Node Threshold  </label>       <input type="text" id="threshold_id" value="2" onkeyup="changeNodeThreshold(this)" />
+    <label>Node Probability  </label>       <input type="text" id="probability_id" onkeyup="changeNodeProbability(this)" />
+
     <br>
-    <label>Node Probability  </label>       <input type="text" id="probability_id" value="0.5" onkeyup="changeNodeProbability(this)" />
+    <label>Edge average activity time (seconds) </label>       <input type="text" id="edge_activity_time_id"  onkeyup="setEdgeFloat(this, 'meanActivityTime')" />
+    <br>
+    <label>Edge average activity time (seconds) </label>       <input type="text" id="edge_deviation_time_id"  onkeyup="setEdgeFloat(this, 'activityTimeDeviation')" />
 
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->

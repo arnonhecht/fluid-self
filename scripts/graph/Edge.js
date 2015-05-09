@@ -9,13 +9,13 @@ Edge.prototype = {
   constructor: Vertice,
 
   // Private Functions
-  meanActivityTime: 1,
-  activityTimeDeviation: 0.5,
 
 
   // Public Functionsa
   checkAndSetParams: function(conf) {
-
+    _.each(conf, function(val, key) {
+      this[key] = val;
+    }.bind(this));
   },
   resetRoots: function(rootStatus) {
 

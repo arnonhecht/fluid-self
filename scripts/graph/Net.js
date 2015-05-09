@@ -114,6 +114,9 @@ Net.prototype = {
         _.each(this.netVertices, function(v) {
             v.checkAndSetParams(conf);
         });
+        _.each(this.netEdges, function(e) {
+            e.edgeRef.checkAndSetParams(conf.edgeConf);
+        });
     },
     // Perform external operations. e.g. 
     // 1) setting D3 visual objects 

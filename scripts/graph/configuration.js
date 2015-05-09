@@ -5,7 +5,11 @@ conf = {
 	threshold: 0,
 	verticeProbability: 0.8,
 	rootProbability: 0.5,
-	activeEdgesLimit: 1
+	activeEdgesLimit: 1,
+	edgeConf: {
+	  meanActivityTime: 1,
+	  activityTimeDeviation: 0.5
+	}
 };
 
 
@@ -19,6 +23,10 @@ if (!isNode) {
 	setViewVal('cycle_time_id', conf.cycleTime);
 	setViewVal('threshold_id', conf.threshold);
 	setViewVal('probability_id', conf.verticeProbability);
+
+	// Edge Conf
+	setViewVal('edge_activity_time_id', conf.edgeConf.meanActivityTime);
+	setViewVal('edge_deviation_time_id', conf.edgeConf.activityTimeDeviation);
 
 	// Dom Setters
 	function setViewVal(id, v) {
@@ -79,6 +87,14 @@ if (!isNode) {
 		var val = parseFloat(that.value);
 		if (val) {
 			conf.verticeProbability = val;		
+		}
+	}
+
+
+	function setEdgeFloat(that, property) {
+		var val = parseFloat(that.value);
+		if (val) {
+			conf.edgeConf[property] = val;		
 		}
 	}
 }
