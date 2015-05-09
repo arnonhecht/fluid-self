@@ -20,7 +20,8 @@ if (!isNode) {
 	setViewVal('network_edges_id', edgeRepresentation.join(','));
 	setViewVal('node_activation_id', "1");
 	setViewVal('roots_id', _.map(conf.roots, function(v) {return (v+1)}));
-	setViewVal('cycle_time_id', conf.cycleTime);
+	setViewVal('roots_probability_id', conf.rootProbability);
+	// setViewVal('cycle_time_id', conf.cycleTime);
 	setViewVal('threshold_id', conf.threshold);
 	setViewVal('probability_id', conf.verticeProbability);
 
@@ -69,12 +70,12 @@ if (!isNode) {
 		globalNetObject.resetRoots(arr);
 	}
 
-	function changeCycleTime(that) {
-		var val = parseInt(that.value);
-		if (val) {
-			conf.cycleTime = val;		
-		}
-	}
+	// function changeCycleTime(that) {
+	// 	var val = parseInt(that.value);
+	// 	if (val) {
+	// 		conf.cycleTime = val;		
+	// 	}
+	// }
 
 	function changeNodeThreshold(that) {
 		var val = parseInt(that.value);
@@ -82,15 +83,22 @@ if (!isNode) {
 			conf.threshold = val;		
 		}
 	}
-
-	function changeNodeProbability(that) {
+	
+	function setInt(that, property) {
+		var val = parseInt(that.value);
+		if (val) {
+			conf[property] = val;		
+		}
+	}
+	
+	function setFloat(that, property) {
 		var val = parseFloat(that.value);
 		if (val) {
-			conf.verticeProbability = val;		
+			conf[property] = val;		
 		}
 	}
 
-
+	// Edge Conf
 	function setEdgeFloat(that, property) {
 		var val = parseFloat(that.value);
 		if (val) {
