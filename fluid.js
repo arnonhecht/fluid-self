@@ -2,6 +2,7 @@
 
 var net = require('net');
 var fs = require('fs');
+var osc = require('node-osc'); //include node-osc library https://github.com/TheAlphaNerd/node-osc
 
 // Plugins
 global._ = require('./scripts/plugins/underscore.js');
@@ -22,7 +23,7 @@ for (var i=0; i<jsFiles.length; i++) {
 
 
 
-var clientAPI = createClient('127.0.0.1', 6699, 'fluidServerModule', function(data) {
+var clientAPI = createClient('127.0.0.1', 6699, 'fluidServerModule', function(data) { //function(data)? is it active only on 'data' events?
 	    console.log("DATA from : 'fluidServerModule'" + data);
 });
 
@@ -66,7 +67,11 @@ function runFluid(networkDeffinition, modules){
 
 
 function createClient(host, port, name, dataFunction) {
-	var client = new net.Socket();
+	var client = new osc.Client(host, port);
+	return client;
+}
+	
+	/*var client = new net.Socket();
 
 	client.connect(port, host, function() {
 	    console.log('CONNECTED TO: ' + host + ':' + port);
@@ -102,7 +107,7 @@ function createClient(host, port, name, dataFunction) {
 	  }
 	});
 	return client;
-}
+}*/
 
 
 
