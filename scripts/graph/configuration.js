@@ -21,6 +21,7 @@ if (!isNode) {
 	setViewVal('node_activation_id', "1");
 	setViewVal('roots_id', _.map(conf.roots, function(v) {return (v+1)}));
 	setViewVal('roots_probability_id', conf.rootProbability);
+	setViewVal('active_edge_limit_id', conf.rootProbability);
 	// setViewVal('cycle_time_id', conf.cycleTime);
 	setViewVal('threshold_id', conf.threshold);
 	setViewVal('probability_id', conf.verticeProbability);
