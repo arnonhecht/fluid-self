@@ -14,7 +14,7 @@ fluidServerModule = function(api) {
 			var allVertices = [];
 			_.each(netStruct.allVertices, function(v) {
 				allVertices.push({
-					id: v.id,
+					id: (v.id + 1),
 					active: (v.isActive() ? "true" : "false"),
 					sensorActive: (v.isActiveByTouch() ? "true" : "false")
 				});
@@ -23,8 +23,8 @@ fluidServerModule = function(api) {
 			var allEdges = [];
 			_.each(netStruct.allEdges, function(e) {
 				allEdges.push({
-					source: e.source,
-					target: e.target,
+					source: (e.source + 1),
+					target: (e.target + 1),
 					active: (e.edgeRef.isActive() ? "true" : "false"),
 					getActivityDuration: (e.edgeRef.isActive() ? e.edgeRef.getActivityDuration() : 0),
 					sensorActive: (e.edgeRef.isActiveByTouch() ? "true" : "false")
