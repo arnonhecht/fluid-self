@@ -48,9 +48,10 @@ Edge.prototype = {
       this.active = true;
       this.isDirty = true;
       var sign = (0.5<Math.random()) ? 1: (-1);
-      var activityTime = (this.meanActivityTime + (sign * this.activityTimeDeviation * Math.random())) * 1000;
+      var activityTime = parseInt((this.meanActivityTime + (sign * this.activityTimeDeviation * Math.random())) * 1000);
       if (this.log) console.log('Edge ('+this.originEdge.source+','+this.originEdge.target+') activity time: ' + activityTime/1000 + ' seconds');
       this.ts = (new Date().getTime() + activityTime);
+      this.activityDuration = activityTime;
   },
   deactivate: function() {
     this.active = false;
@@ -68,6 +69,9 @@ Edge.prototype = {
   },
   wasActive: function() {
     return (!this.active && this.isDirty);
+  },
+  getActivityDuration: function() {
+    return this.activityDuration;
   },
   isSignaling: function() {
 

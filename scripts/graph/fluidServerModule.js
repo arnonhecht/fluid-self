@@ -26,6 +26,7 @@ fluidServerModule = function(api) {
 					source: e.source,
 					target: e.target,
 					active: (e.edgeRef.isActive() ? "true" : "false"),
+					getActivityDuration: (e.edgeRef.isActive() ? e.edgeRef.getActivityDuration() : 0),
 					sensorActive: (e.edgeRef.isActiveByTouch() ? "true" : "false")
 				});
 			});
