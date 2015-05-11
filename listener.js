@@ -1,8 +1,15 @@
-var net = require('net');   
+//var net = require('net');   
+var osc = require('node-osc'); //include node-osc library https://github.com/TheAlphaNerd/node-osc
 
 var HOST = '127.0.0.1';
 var PORT = 6699;
 
+var oscServer = new osc.Server(PORT, HOST);
+oscServer.on("message", function (msg, rinfo) {
+      console.log(msg);
+});
+
+/*  Old usage using 'net'
 // Create a server instance, and chain the listen function to it
 // The function passed to net.createServer() becomes the event handler for the 'connection' event
 // The sock object the callback function receives UNIQUE for each connection
@@ -42,17 +49,4 @@ server.listen(PORT, HOST);
 console.log('Server listening on ' + HOST +':'+ PORT);
 
 
-
-
-// var PORT = 41443;
-
-// var net = require("net");
-
-// var s = new net.Socket();
-
-// s.on("data", function(data) {
-//   console.log("data received:", data);
-// });
-// s.connect(PORT, function(){
-//     s.write("hello!");
-// });
+*/

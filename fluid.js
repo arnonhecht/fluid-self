@@ -1,6 +1,6 @@
 //fluid main
-
 var net = require('net');
+var osc = require('node-osc'); //include node-osc library https://github.com/TheAlphaNerd/node-osc
 var fs = require('fs');
 
 // Plugins
@@ -66,41 +66,42 @@ function runFluid(networkDeffinition, modules){
 
 
 function createClient(host, port, name, dataFunction) {
-	var client = new net.Socket();
+	
+	var client = new osc.Client(host, port); //var client = new net.Socket();
 
-	client.connect(port, host, function() {
-	    console.log('CONNECTED TO: ' + host + ':' + port);
-	    // sendNextDataLoop();
-	    // Write a message to the socket as soon as the client is connected, the server will receive it as message from the client 
-	    client.write('Hello from fluidServer');
-	});
+	// client.connect(port, host, function() {
+	//     console.log('CONNECTED TO: ' + host + ':' + port);
+	//     // sendNextDataLoop();
+	//     // Write a message to the socket as soon as the client is connected, the server will receive it as message from the client 
+	//     client.write('Hello from fluidServer');
+	// });
 	function sendNextDataLoop() {
 		// client.write("myNet: " + JSON.stringify(myNet));
 		// setTimeout(sendNextDataLoop, 1000);
 	}
 	// Add a 'data' event handler for the client socket
 	// data is what the server sent to this socket
-	client.on('data', function(data) {
-	    dataFunction(data);
-	});
+	// client.on('data', function(data) {
+	//     dataFunction(data);
+	// });
 
-	// Add a 'close' event handler for the client socket
-	client.on('close', function() {
-	    console.log('Writer: Connection closed... (' + host + ':' + port + ')');
-	    setTimeout(function() {
-	    	createClient(host, port, name, dataFunction)
-	    }, 1000);
-	});
+	// // Add a 'close' event handler for the client socket
+	// client.on('close', function() {
+	//     console.log('Writer: Connection closed... (' + host + ':' + port + ')');
+	//     setTimeout(function() {
+	//     	createClient(host, port, name, dataFunction)
+	//     }, 1000);
+	// });
 
-	client.on('error', function (e) {
-	  if (e.code == 'EADDRINUSE') {
-	    console.log('Address in use, retrying... (' + host + ':' + port + ')');
-	    setTimeout(function () {
-	      client.close();
-	      client.listen(port, host);
-	    }, 1000);
-	  }
-	});
+	// client.on('error', function (e) {
+	//   if (e.code == 'EADDRINUSE') {
+	//     console.log('Address in use, retrying... (' + host + ':' + port + ')');
+	//     setTimeout(function () {
+	//       client.close();
+	//       client.listen(port, host);
+	//     }, 1000);
+	//   }
+	// });
 	return client;
 }
 

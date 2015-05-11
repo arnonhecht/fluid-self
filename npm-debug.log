@@ -1,0 +1,108 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/local/bin/node',
+1 verbose cli   '/usr/local/bin/npm',
+1 verbose cli   'install',
+1 verbose cli   '-g',
+1 verbose cli   'node-osc' ]
+2 info using npm@1.4.28
+3 info using node@v0.10.36
+4 verbose cache add [ 'node-osc', null ]
+5 verbose cache add name=undefined spec="node-osc" args=["node-osc",null]
+6 verbose parsed url { protocol: null,
+6 verbose parsed url   slashes: null,
+6 verbose parsed url   auth: null,
+6 verbose parsed url   host: null,
+6 verbose parsed url   port: null,
+6 verbose parsed url   hostname: null,
+6 verbose parsed url   hash: null,
+6 verbose parsed url   search: null,
+6 verbose parsed url   query: null,
+6 verbose parsed url   pathname: 'node-osc',
+6 verbose parsed url   path: 'node-osc',
+6 verbose parsed url   href: 'node-osc' }
+7 silly lockFile 2068c8d5-node-osc node-osc
+8 verbose lock node-osc /Users/arnonhecht/.npm/2068c8d5-node-osc.lock
+9 silly lockFile 2068c8d5-node-osc node-osc
+10 silly lockFile 2068c8d5-node-osc node-osc
+11 verbose addNamed [ 'node-osc', '' ]
+12 verbose addNamed [ null, '*' ]
+13 silly lockFile 7b79d339-node-osc node-osc@
+14 verbose lock node-osc@ /Users/arnonhecht/.npm/7b79d339-node-osc.lock
+15 silly addNameRange { name: 'node-osc', range: '*', hasData: false }
+16 silly addNameRange number 2 { name: 'node-osc', range: '*', hasData: true }
+17 silly addNameRange versions [ 'node-osc',
+17 silly addNameRange   [ '0.1.0', '0.1.1', '0.1.2', '0.1.3', '0.2.0', '0.2.1', '0.3.0' ] ]
+18 verbose addNamed [ 'node-osc', '0.3.0' ]
+19 verbose addNamed [ '0.3.0', '0.3.0' ]
+20 silly lockFile bc9c61a3-node-osc-0-3-0 node-osc@0.3.0
+21 verbose lock node-osc@0.3.0 /Users/arnonhecht/.npm/bc9c61a3-node-osc-0-3-0.lock
+22 silly lockFile bc9c61a3-node-osc-0-3-0 node-osc@0.3.0
+23 silly lockFile bc9c61a3-node-osc-0-3-0 node-osc@0.3.0
+24 silly lockFile 7b79d339-node-osc node-osc@
+25 silly lockFile 7b79d339-node-osc node-osc@
+26 silly resolved [ { name: 'node-osc',
+26 silly resolved     description: 'pyOSC inspired library',
+26 silly resolved     version: '0.3.0',
+26 silly resolved     main: 'index',
+26 silly resolved     athor: { name: 'Myles Borins', email: 'myles.borins@gmail.com' },
+26 silly resolved     contributors: [ [Object], [Object] ],
+26 silly resolved     dependencies: { jspack: '0.0.1', 'osc-min': '0.0.5' },
+26 silly resolved     keywords: [ 'osc', 'udp' ],
+26 silly resolved     repository:
+26 silly resolved      { type: 'git',
+26 silly resolved        url: 'git://github.com/TheAlphaNerd/node-osc.git' },
+26 silly resolved     gitHead: 'fbb9b6dddfef896e41a8604ca43f69a03239f25a',
+26 silly resolved     bugs: { url: 'https://github.com/TheAlphaNerd/node-osc/issues' },
+26 silly resolved     homepage: 'https://github.com/TheAlphaNerd/node-osc',
+26 silly resolved     _id: 'node-osc@0.3.0',
+26 silly resolved     scripts: {},
+26 silly resolved     _shasum: '6856df8c64ba65bed1c1164c1265315bfedd3123',
+26 silly resolved     _from: 'node-osc@',
+26 silly resolved     _npmVersion: '2.1.4',
+26 silly resolved     _nodeVersion: '0.10.32',
+26 silly resolved     _npmUser: { name: 'thealphanerd', email: 'myles.borins@gmail.com' },
+26 silly resolved     maintainers: [ [Object] ],
+26 silly resolved     dist:
+26 silly resolved      { shasum: '6856df8c64ba65bed1c1164c1265315bfedd3123',
+26 silly resolved        tarball: 'http://registry.npmjs.org/node-osc/-/node-osc-0.3.0.tgz' },
+26 silly resolved     directories: {},
+26 silly resolved     _resolved: 'https://registry.npmjs.org/node-osc/-/node-osc-0.3.0.tgz',
+26 silly resolved     readme: 'ERROR: No README data found!' } ]
+27 info install node-osc@0.3.0 into /usr/local/lib
+28 info installOne node-osc@0.3.0
+29 verbose lib/node_modules/node-osc unbuild
+30 verbose tar unpack /Users/arnonhecht/.npm/node-osc/0.3.0/package.tgz
+31 silly lockFile 0ffae16e--local-lib-node-modules-node-osc tar:///usr/local/lib/node_modules/node-osc
+32 verbose lock tar:///usr/local/lib/node_modules/node-osc /Users/arnonhecht/.npm/0ffae16e--local-lib-node-modules-node-osc.lock
+33 silly lockFile 4bdb0d68-t-npm-node-osc-0-3-0-package-tgz tar:///Users/arnonhecht/.npm/node-osc/0.3.0/package.tgz
+34 verbose lock tar:///Users/arnonhecht/.npm/node-osc/0.3.0/package.tgz /Users/arnonhecht/.npm/4bdb0d68-t-npm-node-osc-0-3-0-package-tgz.lock
+35 silly gunzTarPerm modes [ '755', '644' ]
+36 error Error: EACCES, mkdir '/usr/local/lib/node_modules/node-osc'
+36 error  { [Error: EACCES, mkdir '/usr/local/lib/node_modules/node-osc']
+36 error   errno: 3,
+36 error   code: 'EACCES',
+36 error   path: '/usr/local/lib/node_modules/node-osc',
+36 error   fstream_type: 'Directory',
+36 error   fstream_path: '/usr/local/lib/node_modules/node-osc',
+36 error   fstream_class: 'DirWriter',
+36 error   fstream_stack:
+36 error    [ '/usr/local/lib/node_modules/npm/node_modules/tar/node_modules/fstream/lib/dir-writer.js:36:23',
+36 error      '/usr/local/lib/node_modules/npm/node_modules/tar/node_modules/fstream/node_modules/mkdirp/index.js:46:53',
+36 error      'Object.oncomplete (fs.js:108:15)' ] }
+37 error Please try running this command again as root/Administrator.
+38 error System Darwin 13.4.0
+39 error command "/usr/local/bin/node" "/usr/local/bin/npm" "install" "-g" "node-osc"
+40 error cwd /Users/arnonhecht/Projects/fluid
+41 error node -v v0.10.36
+42 error npm -v 1.4.28
+43 error path /usr/local/lib/node_modules/node-osc
+44 error fstream_path /usr/local/lib/node_modules/node-osc
+45 error fstream_type Directory
+46 error fstream_class DirWriter
+47 error code EACCES
+48 error errno 3
+49 error stack Error: EACCES, mkdir '/usr/local/lib/node_modules/node-osc'
+50 error fstream_stack /usr/local/lib/node_modules/npm/node_modules/tar/node_modules/fstream/lib/dir-writer.js:36:23
+50 error fstream_stack /usr/local/lib/node_modules/npm/node_modules/tar/node_modules/fstream/node_modules/mkdirp/index.js:46:53
+50 error fstream_stack Object.oncomplete (fs.js:108:15)
+51 verbose exit [ 3, true ]

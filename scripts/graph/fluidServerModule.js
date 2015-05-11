@@ -15,8 +15,8 @@ fluidServerModule = function(api) {
 			_.each(netStruct.allVertices, function(v) {
 				allVertices.push({
 					id: v.id,
-					active: v.isActive(),
-					sensorActive: v.isActiveByTouch()
+					active: (v.isActive() ? "true" : "false"),
+					sensorActive: (v.isActiveByTouch() ? "true" : "false")
 				});
 			});
 
@@ -25,8 +25,8 @@ fluidServerModule = function(api) {
 				allEdges.push({
 					source: e.source,
 					target: e.target,
-					active: e.edgeRef.isActive(),
-					sensorActive: e.edgeRef.isActiveByTouch()
+					active: (e.edgeRef.isActive() ? "true" : "false"),
+					sensorActive: (e.edgeRef.isActiveByTouch() ? "true" : "false")
 				});
 			});
 
@@ -36,10 +36,11 @@ fluidServerModule = function(api) {
 			};
 
 			var toSend = JSON.stringify(netToSend);
-			me.api.write(toSend);
+			// console.log("toSend: " + toSend);
+			me.api.send(toSend); //me.api.write(toSend);
 			
 			_.each(netToSend.allVertices, function(v){
-				if (v.sensorActive) {
+				if (v.sensorActive=="true") {
 					console.log("Vertice '"+v.id+"' was touched")
 				}
 			})
