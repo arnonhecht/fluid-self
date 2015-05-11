@@ -32,7 +32,8 @@ fluidServerModule = function(api) {
 
 			var netToSend = {
 				allEdges: allEdges,
-				allVertices: allVertices
+				allVertices: allVertices,
+				networkDef: networkDef
 			};
 
 			var toSend = JSON.stringify(netToSend);
