@@ -1,5 +1,8 @@
 
 // Init
+// setViewVal('neural_net_id', _.contains(conf.layersConf.activeLayers, 'NeuralNetLayer'));
+// setViewVal('signal_layer_id', _.contains(conf.layersConf.activeLayers, 'SignalLayer'));
+loadAlgorythms();
 var edgeRepresentation =_.map(networkDef.edges, function(e){return '('+e.s+','+e.t+')'});
 setViewVal('network_edges_id', edgeRepresentation.join(','));
 setViewVal('node_activation_id', "1");
@@ -98,6 +101,24 @@ function setEdgeFloat(that, property) {
 		conf.edgeConf[property] = val;		
 	}
 	sendConfToServer();
+}
+
+// Algorythms controll
+function loadAlgorythms() {
+	_.each(conf.layersConf.existingLayers, function(layer) {
+		var element = $('#' + layer + 'Id');
+		element.attr("checked", _.contains(conf.layersConf.activeLayers, layer));
+		element.on('click', function(event, value) {
+			var activeArr = conf.layersConf.activeLayers;
+			var val = element.is(":checked");
+			if (val==true && !_.contains(activeArr, layer)) {
+				activeArr.push(layer);
+			} else if (val==false){
+				conf.layersConf.activeLayers = _.filter(activeArr, function(l){return l!=layer});
+			}
+			sendConfToServer();
+		});
+	});
 }
 
 

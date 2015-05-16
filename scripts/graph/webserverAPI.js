@@ -22,8 +22,4 @@ if (isWebserver()) {
 
 }
 
-function isWebserver() {
-    return false;//(typeof io != 'undefined');
-}
-
 $('#is_webserver_id').text(isWebserver() ? "Webserver !!!" : "Browser !!!");

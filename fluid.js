@@ -16,7 +16,7 @@ globalNetStateJson = undefined; // we always run the net logic on the server
 
 isNode = true;
 var basePath = "./scripts/graph/";
-var jsFiles = ['configuration.js', 'NeuralNetLayer.js', 'SignalLayer.js', 
+var jsFiles = ['configuration.js', 'NeuralNetLayer.js', 'SignalLayer.js', 'RandomLayer.js', 
 					'Layers.js', 'Vertice.js', 'Edge.js', 'Net.js', 'netGen.js', 'fluideSelfNetwork.js', 
 					'algorithms.js', 'stateTranslator.js'
 					];

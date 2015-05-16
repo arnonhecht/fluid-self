@@ -10,10 +10,24 @@ conf = {
 	  meanActivityTime: 1,
 	  activityTimeDeviation: 0.5
 	},
+	layersConf: {
+	  activeLayers: ['NeuralNetLayer', 'SignalLayer'],
+	  existingLayers: ['NeuralNetLayer', 'SignalLayer', 'RandomLayer'],
+	},
 	signalLayerConf: {
 	  meanActivityTime: 1,
 	  activityTimeDeviation: 0.5,
 	  probabilityToActivate: 0.8
+	},
+	randomLayerConf: {
+	  meanActivityTime: 1,
+	  activityTimeDeviation: 0.5,
+	  probabilityToActivate: 0.5
 	}
 };
 
+
+// returns true if the browser should display the web-server's states
+function isWebserver() {
+    return true;//(typeof io != 'undefined');
+}

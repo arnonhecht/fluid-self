@@ -42,6 +42,14 @@
     </div>
 
     <!-- App controlls -->
+    <input type="checkbox" id="NeuralNetLayerId" />
+    <label for="NeuralNetLayerId">Neural Net Layer</label>
+    <input type="checkbox" id="SignalLayerId" />
+    <label for="SignalLayerId">Signal Layer </label>
+    <input type="checkbox" id="RandomLayerId" />
+    <label for="RandomLayerId">Random Layer </label>
+
+    <br>
     <label>Network </label>       
     <textarea type="text" id="network_edges_id" onkeyup="" style="width: 500px; height: 100px;">
     </textarea>
@@ -88,11 +96,11 @@
 
         <script src="scripts/main.js"></script>
         <script src="scripts/graph/networkDef.js"></script>
-        <script src="scripts/graph/webserverAPI.js"></script>
         
         <script src="scripts/graph/configuration.js"></script>
         <script src="scripts/graph/ViewModel.js"></script>
         <script src="scripts/graph/stateTranslator.js"></script>
+        <script src="scripts/graph/webserverAPI.js"></script>
 
         <!--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r71/three.js"></script>-->
         
@@ -101,6 +109,7 @@
         <script src="scripts/graph/fluideSelfRenderer.js"></script>
         <script src="scripts/graph/NeuralNetLayer.js"></script>
         <script src="scripts/graph/SignalLayer.js"></script>
+        <script src="scripts/graph/RandomLayer.js"></script>    
         <script src="scripts/graph/Layers.js"></script>
         <script src="scripts/graph/Vertice.js"></script>
         <script src="scripts/graph/Edge.js"></script>

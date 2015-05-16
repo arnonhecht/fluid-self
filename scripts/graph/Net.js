@@ -26,7 +26,14 @@ function Net (netStruct, roots, modules) {
                     initScore: 0,
                     roots: roots //[0, 2, 14, 25, 33, 27, 21, 20, 22]
                 }
-            },]
+            },{
+                id: 'RandomLayer',
+                layerCtor: RandomLayer,
+                ctorParams: _.extend({
+                    id: 'RandomLayer',
+                    netStruct: netStruct
+                }, conf.randomLayerConf)
+            }]
         };
 
         params = _.extend(params, d3Vertice);
@@ -145,24 +152,8 @@ Net.prototype = {
 
     // Relays the state of each Vertice & Edge through a callback 'externalActivationCallback' 
     // which is provided by the external consumer
-
-    // todo: this is not necessary - The state of the system can and should be determined
-    //       in 'prepareExternalDataForNextCycle'.
-    //       this is an unnecessary optimization
     relayNetStateToExternalConsumer: function() {
-        // var currSignalingVertices = this.getSignalingVertices();
-        // _.each(currSignalingVertices, function(v) {
-        //     var outgoingVertices = v.layers.getLayer('NeuralNetLayer').getOutgoingVertices();
-        //     _.each(outgoingVertices, function(targetVertice){
-        //         edge = this.findEdge(this.allEdges, v.id, targetVertice.id);
-        //         this.externalActivationCallback({edge: edge});
-        //     }.bind(this));
-        // }.bind(this));
 
-        // var currActiveVertices = this.getActiveVertices();
-        // _.each(currActiveVertices, function(v) {
-        //     this.externalActivationCallback({vertice: v});
-        // });
     },
 
     tick: function() {
