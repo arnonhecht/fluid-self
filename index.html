@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html class="no-js">
   <head>
@@ -24,7 +25,28 @@
         <h1>Fugara Network visualization!</h1>
       </div>
 
- 
+    
+
+    <ul id="messages"></ul>
+    <form action="">
+      <input id="m" autocomplete="off" /><button>Send</button>
+    </form>
+    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+    <script>
+      socket = io();
+      $('form').submit(function(){
+        socket.emit('chat message', $('#m').val());
+        $('#m').val('');
+        return false;
+      });
+      socket.on('chat message', function(msg){
+        $('#messages').append($('<li>').text(msg));
+      });
+    </script>
+
+
+
     <div id="web_gl_container" style="position: relative;"></div>
     <div id="container"></div>
       <div class="footer">
@@ -35,7 +57,8 @@
 
     <!-- App controlls -->
     <label>Network </label>       
-    <textarea type="text" id="network_edges_id" onkeyup="" style="width: 500px; height: 100px;"></textarea>
+    <textarea type="text" id="network_edges_id" onkeyup="" style="width: 500px; height: 100px;">
+    </textarea>
     <button onclick="return changeNetworkSettings(event);">Reset Configuration</button>
     <br>
     <label>Activate Node (Press 'Enter' to activate)</label>       
@@ -77,6 +100,7 @@
         <script src="scripts/graph/networkDef.js"></script>
         
         <script src="scripts/graph/configuration.js"></script>
+        <script src="scripts/graph/ViewModel.js"></script>
 
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r71/three.js"></script>
 

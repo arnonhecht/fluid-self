@@ -1,7 +1,14 @@
 //fluid main
+// For web API
+var express = require('express');
+var serverAppAPI = express();
+var http = require('http').Server(serverAppAPI);
+var io = require('socket.io')(http);
+
+// For socket based communication
 var net = require('net');
 var osc = require('node-osc'); //include node-osc library https://github.com/TheAlphaNerd/node-osc
-var fs = require('fs');
+var fs = require('fs'); // For loading all files into the global namespace - hacky but works..
 
 // Plugins
 global._ = require('./scripts/plugins/underscore.js');
@@ -30,6 +37,8 @@ var modulesArr = [
 require(basePath + 'sensorAdapterModule.js').sensorAdapterModule(),
 require(basePath + 'fluidServerModule.js').fluidServerModule(clientAPI)
 ];
+
+createWebServerAPI();
 
 runFluid(networkDef.networkDef, modulesArr);
 
@@ -105,6 +114,32 @@ function createClient(host, port, name, dataFunction) {
 	return client;
 }
 
+function createWebServerAPI() {
+	var serverAPI_PORT = '3333';
+
+	serverAppAPI.get('/', function(req, res){
+		var path = __dirname + '/index.html';
+		console.log('loading: ' + path);
+	  res.sendFile(path);
+	});
+
+	serverAppAPI.use('/scripts', express.static(__dirname + '/scripts'));
+
+	io.on('connection', function(socket){
+	  socket.on('chat message', function(msg){
+	    io.emit('chat message', msg);
+	  });
+
+	  socket.on('change_conf', function(msg){
+  		conf = JSON.parse(msg);
+	  	console.log('New Configuration: ' + msg);
+	  });
+	});
+
+	http.listen(serverAPI_PORT, function(){
+	  console.log('listening on *:' + serverAPI_PORT);
+	});
+}
 
 
 
