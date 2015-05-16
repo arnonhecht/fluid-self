@@ -5,7 +5,7 @@ conf = {
 	threshold: 0,
 	verticeProbability: 0.8,
 	rootProbability: 0.5,
-	activeEdgesLimit: 1,
+	activeEdgesLimit: 2,
 	edgeConf: {
 	  meanActivityTime: 1,
 	  activityTimeDeviation: 0.5

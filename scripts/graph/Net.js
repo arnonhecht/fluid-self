@@ -153,7 +153,6 @@ Net.prototype = {
     // Relays the state of each Vertice & Edge through a callback 'externalActivationCallback' 
     // which is provided by the external consumer
     relayNetStateToExternalConsumer: function() {
-
     },
 
     tick: function() {

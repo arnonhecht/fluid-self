@@ -37,8 +37,6 @@ NeuralNetLayer.prototype = {
     // Layer Specific Methods
 	updateScore: function (theScoreToAdd)  {
 	  this.currScore += theScoreToAdd;
-	  // this.layers
-	  // this.verticeRef.d3Obj.name = this.verticeRef.name + "(" + this.currScore + ")";
 	  return false;
 	},
 
@@ -51,6 +49,7 @@ NeuralNetLayer.prototype = {
   checkAndSetParams: function(conf) {
     this.threshold = conf.threshold;
     this.verticeProbability = conf.verticeProbability;
+    this.activeEdgesLimit = conf.activeEdgesLimit;
   },
 
   // Public Functions
@@ -75,9 +74,6 @@ NeuralNetLayer.prototype = {
       this.active = false;
     } else if (this.wasActive()) {
       this.finishedActive = true;
-    // } else if (this.active && !this.finishedActive) {
-		  // this.active = false;
-      // this.finishedActive = true;
     } else {
 	    if (this.threshold < this.currScore) {
 	    	this.currScore = this.initScore;
