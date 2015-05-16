@@ -96,6 +96,7 @@ function createWebServerAPI() {
 	io.on('connection', function(socket){
 	  socket.on('chat message', function(msg){
 	    io.emit('chat message', msg);
+	    console.log('Browser said: ' + msg);
 	  });
 
 	  socket.on('change_conf', function(msg){

@@ -100,6 +100,8 @@ function setEdgeFloat(that, property) {
 	sendConfToServer();
 }
 
+
+// WebServer comminications
 function sendConfToServer() {
 	if (socket) {
 		socket.emit('change_conf', JSON.stringify(conf));
