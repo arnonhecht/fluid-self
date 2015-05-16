@@ -9,6 +9,11 @@ conf = {
 	edgeConf: {
 	  meanActivityTime: 1,
 	  activityTimeDeviation: 0.5
+	},
+	signalLayerConf: {
+	  meanActivityTime: 1,
+	  activityTimeDeviation: 0.5,
+	  probabilityToActivate: 0.8
 	}
 };
 

@@ -1,6 +1,5 @@
 function SignalLayer (verticeRef, params) {
-    this.id = params.id;
-    this.activeColor = 'yellow'
+    _.extend(this, params);
     this.currColor = params.currColor;
     this.verticeRef = verticeRef;
 
@@ -16,22 +15,17 @@ SignalLayer.prototype = {
     },
 
     determineCurrentState: function (theScoreToAdd)  {
-        if (this.active) {
-            this.currColor ='red'
-        } else {
-            this.currColor ='blue'
-        }
     },
 
     determineNetworkEffect: function (theScoreToAdd)  {
-        if (0<this.cyclesTillTimeout) {
-            this.cyclesTillTimeout--;
-        }
-        if (this.active && 0==this.cyclesTillTimeout) {
+        if (this.active && this.isDone()) {
             this.active = false;
-            _.each(_.union(this.verticeRef.outEdges, this.verticeRef.inEdges), function(edge) {
+                var verticePool = _.union(this.verticeRef.outEdges, this.verticeRef.inEdges);
+            _.each(verticePool, function(edge) {
                 edge.edgeRef.setActiveByTouch();
-                edge.color = this.activeColor;
+                if (Math.random() < this.probabilityToActivate && edge.target != this.verticeRef.id) {
+                    _.findWhere(this.verticeRef.outVertices, {id: edge.target}).triggerSignal();
+                }
             }.bind(this));
         }
     },
@@ -47,12 +41,17 @@ SignalLayer.prototype = {
     // Layer Specific Methods
     triggerSignal: function() {
         this.active = true;
-        this.cyclesTillTimeout = false;
-        this.cyclesTillTimeout = 3;
+        var sign = (0.5<Math.random()) ? 1: (-1);
+        var activityTime = parseInt((this.meanActivityTime + (sign * this.activityTimeDeviation * Math.random())) * 1000);
+        this.ts = (new Date().getTime() + activityTime);
+        this.activityDuration = activityTime;
         console.log("Signal Trigered for node id:" + this.verticeRef.id);
         // setTimeout(this.resetTimeoutPassed.bind(this), 1000);
     },
 
+    isDone: function(state) {
+        return (this.ts < new Date().getTime());
+    },
     isActive: function() {
         return this.active;
     }

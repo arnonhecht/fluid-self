@@ -44,9 +44,10 @@ runFluid(networkDef.networkDef, modulesArr);
 
 
 
-function runFluid(networkDeffinition, modules){
+function runFluid(networkDefinition, modules){
 	// var modulesArr = [fluidServerModule(clientAPI)];
-	var netToRun = buildFLuideSelfNetwork(networkDeffinition, modules);
+	var netToRun = buildFLuideSelfNetwork(networkDefinition, modules);
+	gloablRunningNetObj = netToRun; // Hacky !!!
 
 	var mainTicker = function() {
 		netToRun.checkAndSetParams(conf);
@@ -75,42 +76,7 @@ function runFluid(networkDeffinition, modules){
 
 
 function createClient(host, port, name, dataFunction) {
-	
-	var client = new osc.Client(host, port); //var client = new net.Socket();
-
-	// client.connect(port, host, function() {
-	//     console.log('CONNECTED TO: ' + host + ':' + port);
-	//     // sendNextDataLoop();
-	//     // Write a message to the socket as soon as the client is connected, the server will receive it as message from the client 
-	//     client.write('Hello from fluidServer');
-	// });
-	function sendNextDataLoop() {
-		// client.write("myNet: " + JSON.stringify(myNet));
-		// setTimeout(sendNextDataLoop, 1000);
-	}
-	// Add a 'data' event handler for the client socket
-	// data is what the server sent to this socket
-	// client.on('data', function(data) {
-	//     dataFunction(data);
-	// });
-
-	// // Add a 'close' event handler for the client socket
-	// client.on('close', function() {
-	//     console.log('Writer: Connection closed... (' + host + ':' + port + ')');
-	//     setTimeout(function() {
-	//     	createClient(host, port, name, dataFunction)
-	//     }, 1000);
-	// });
-
-	// client.on('error', function (e) {
-	//   if (e.code == 'EADDRINUSE') {
-	//     console.log('Address in use, retrying... (' + host + ':' + port + ')');
-	//     setTimeout(function () {
-	//       client.close();
-	//       client.listen(port, host);
-	//     }, 1000);
-	//   }
-	// });
+	var client = new osc.Client(host, port); 
 	return client;
 }
 
@@ -132,12 +98,19 @@ function createWebServerAPI() {
 
 	  socket.on('change_conf', function(msg){
   		conf = JSON.parse(msg);
-	  	console.log('New Configuration: ' + msg);
+	  	console.log('New Configuration: ' + conf);
+	  });
+
+	  socket.on('touch_edge', function(msg){
+	  	var id = JSON.parse(msg);
+	  	console.log('Vertice ' + id + ' touched by browser');
+		var v = _.findWhere(gloablRunningNetObj.netVertices, {id: id});
+		v.triggerSignal();
 	  });
 	});
 
 	http.listen(serverAPI_PORT, function(){
-	  console.log('listening on *:' + serverAPI_PORT);
+	  console.log('listening on localhost:' + serverAPI_PORT);
 	});
 }
 

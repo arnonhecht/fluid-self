@@ -45,9 +45,11 @@ function activateNode(that) {
 	var nodeId = (parseInt(that.value) - 1);
 	if (_.isNumber(nodeId)) {
 		var v = globalNetObject.getV(nodeId);
-		if (v) v.triggerSignal();
+		if (v) {
+		 v.triggerSignal();
+		 sendTouchToServer(nodeId);
+		}
 	}
-	sendConfToServer();
 }
 
 function changeRoots(that) {
@@ -100,3 +102,8 @@ function setEdgeFloat(that, property) {
 function sendConfToServer() {
 	socket.emit('change_conf', JSON.stringify(conf));
 }
+
+function sendTouchToServer(nodeId) {
+	socket.emit('touch_edge', JSON.stringify(nodeId));
+}
+

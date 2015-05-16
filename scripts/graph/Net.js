@@ -11,10 +11,9 @@ function Net (netStruct, roots, modules) {
             layers: [{
                 id: 'SignalLayer',
                 layerCtor: SignalLayer,
-                ctorParams: {
+                ctorParams: _.extend({
                     id: 'SignalLayer',
-                    currColor: 'blue'
-                }
+                }, conf.signalLayerConf)
             },{
                 id: 'NeuralNetLayer',
                 layerCtor: NeuralNetLayer,
