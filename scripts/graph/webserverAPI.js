@@ -9,13 +9,6 @@ if (isWebserver()) {
     $('#messages').append($('<li>').text(msg));
   });
   socket.on('update_webgl_view', function(msg){
-    _.each(msg.allEdges, function(e) {
-        e.source = (e.source-1);
-        e.target = (e.target-1);
-    }); 
-    _.each(msg.allVertices, function(e) {
-        e.id = (e.id-1);
-    }); 
     globalNetStateJson = msg;
     console.log("Got net representation from server..");
   });
@@ -30,7 +23,7 @@ if (isWebserver()) {
 }
 
 function isWebserver() {
-    return true;//(typeof io != 'undefined');
+    return false;//(typeof io != 'undefined');
 }
 
 $('#is_webserver_id').text(isWebserver() ? "Webserver !!!" : "Browser !!!");

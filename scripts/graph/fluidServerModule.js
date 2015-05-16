@@ -12,7 +12,7 @@ fluidServerModule = function(api) {
 		// Callbacks for the Net 
 		me.preCycleOps = function(netStruct) {
 			// console.log("e: "+netStruct.allEdges.length+", v: " + netStruct.allVertices.length);
-			var netToSend = stateTranslator.translate(netStruct);
+			var netToSend = netStruct; //stateTranslator.translate(netStruct);
 			var toSend = JSON.stringify(netToSend);
 			// console.log("toSend: " + toSend);
 			me.api.send(toSend); //me.api.write(toSend);

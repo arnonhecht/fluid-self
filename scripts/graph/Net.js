@@ -104,10 +104,17 @@ Net.prototype = {
     // 1) setting D3 visual objects 
     // 2) sending data to "Melodi Generator" or DMX components
     prepareExternalDataForNextCycle: function() {
-        if (globalNetStateJson) {
-            this.preCycleOps(globalNetStateJson);    
-        } else {
-            this.preCycleOps({allEdges: this.allEdges, allVertices: this.netVertices});
+        // this is somewhat hacky but necessary in order to allow running both in the server and the browser 
+        // and running in the server and displaying the output in the browser
+        try {
+            if (globalNetStateJson) {
+                this.preCycleOps(globalNetStateJson);    
+            } else {
+                var translatedOutput = stateTranslator.translate({allEdges: this.allEdges, allVertices: this.netVertices});
+                this.preCycleOps(translatedOutput);
+            }
+        } catch(e) {
+            console.log("Exception in 'preCycleOps':" + e);
         }
     },
 

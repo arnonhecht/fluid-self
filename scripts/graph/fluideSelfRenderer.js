@@ -205,7 +205,7 @@ webGLGraphModule = function() {
 
 		// Access graph representation functions
 		function colorLine(e, c1, c2) {
-			var lineObj = getTreeJSLineObject(e.source, e.target);
+			var lineObj = getTreeJSLineObject(e.source-1, e.target-1);
 			lineObj.theerJSLine.geometry.colors = getLineColorArray(c1, c2);
 			lineObj.theerJSLine.geometry.colorsNeedUpdate = true;
 		}
@@ -234,7 +234,6 @@ webGLGraphModule = function() {
 		// Callbacks for the Net 
 		me.preCycleOps = function(args) {
 			stats.begin();
-			// var netStateStruct = stateTranslator.translate(args);
 	        _.each(args.allEdges, function(e){
 	        	if (e.active=="true" || e.wasActive=="true") {
 	        		setLineFromRepresentation(e, colorActive);
