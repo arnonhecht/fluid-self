@@ -11,32 +11,8 @@ fluidServerModule = function(api) {
 	me.init = function(netStruct) {
 		// Callbacks for the Net 
 		me.preCycleOps = function(netStruct) {
-			var allVertices = [];
-			_.each(netStruct.allVertices, function(v) {
-				allVertices.push({
-					id: (v.id + 1),
-					active: (v.isActive() ? "true" : "false"),
-					sensorActive: (v.isActiveByTouch() ? "true" : "false")
-				});
-			});
-
-			var allEdges = [];
-			_.each(netStruct.allEdges, function(e) {
-				allEdges.push({
-					source: (e.source + 1),
-					target: (e.target + 1),
-					active: (e.edgeRef.isActive() ? "true" : "false"),
-					getActivityDuration: (e.edgeRef.isActive() ? e.edgeRef.getActivityDuration() : 0),
-					sensorActive: (e.edgeRef.isActiveByTouch() ? "true" : "false")
-				});
-			});
-
-			var netToSend = {
-				allEdges: allEdges,
-				allVertices: allVertices,
-				networkDef: networkDef
-			};
-
+			// console.log("e: "+netStruct.allEdges.length+", v: " + netStruct.allVertices.length);
+			var netToSend = stateTranslator.translate(netStruct);
 			var toSend = JSON.stringify(netToSend);
 			// console.log("toSend: " + toSend);
 			me.api.send(toSend); //me.api.write(toSend);

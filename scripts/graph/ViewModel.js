@@ -56,6 +56,7 @@ function changeRoots(that) {
 	var arr = that.value.split(',');
 	arr = _.map(arr, function(v){ return (parseInt(v)-1); });
 	globalNetObject.resetRoots(arr);
+	conf.roots = arr;
 	sendConfToServer();
 }
 
@@ -100,10 +101,14 @@ function setEdgeFloat(that, property) {
 }
 
 function sendConfToServer() {
-	socket.emit('change_conf', JSON.stringify(conf));
+	if (socket) {
+		socket.emit('change_conf', JSON.stringify(conf));
+	}
 }
 
 function sendTouchToServer(nodeId) {
-	socket.emit('touch_edge', JSON.stringify(nodeId));
+	if (socket) {
+		socket.emit('touch_edge', JSON.stringify(nodeId));
+	}
 }
 

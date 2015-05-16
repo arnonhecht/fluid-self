@@ -12,13 +12,13 @@ var fs = require('fs'); // For loading all files into the global namespace - hac
 
 // Plugins
 global._ = require('./scripts/plugins/underscore.js');
-
+globalNetStateJson = undefined; // we always run the net logic on the server
 
 isNode = true;
 var basePath = "./scripts/graph/";
 var jsFiles = ['configuration.js', 'NeuralNetLayer.js', 'SignalLayer.js', 
 					'Layers.js', 'Vertice.js', 'Edge.js', 'Net.js', 'netGen.js', 'fluideSelfNetwork.js', 
-					'algorithms.js'
+					'algorithms.js', 'stateTranslator.js'
 					];
 
 var networkDef = require(basePath + 'networkDef.js');
@@ -34,8 +34,8 @@ var clientAPI = createClient('127.0.0.1', 6699, 'fluidServerModule', function(da
 });
 
 var modulesArr = [
-require(basePath + 'sensorAdapterModule.js').sensorAdapterModule(),
-require(basePath + 'fluidServerModule.js').fluidServerModule(clientAPI)
+	require(basePath + 'sensorAdapterModule.js').sensorAdapterModule(),
+	require(basePath + 'fluidServerModule.js').fluidServerModule(clientAPI)
 ];
 
 createWebServerAPI();
@@ -47,6 +47,7 @@ runFluid(networkDef.networkDef, modulesArr);
 function runFluid(networkDefinition, modules){
 	// var modulesArr = [fluidServerModule(clientAPI)];
 	var netToRun = buildFLuideSelfNetwork(networkDefinition, modules);
+	// console.log('e: ' + netToRun.allEdges.length + ', v:' + netToRun.allVertices.length)
 	gloablRunningNetObj = netToRun; // Hacky !!!
 
 	var mainTicker = function() {
@@ -80,6 +81,7 @@ function createClient(host, port, name, dataFunction) {
 	return client;
 }
 
+// https://github.com/rauchg/chat-example
 function createWebServerAPI() {
 	var serverAPI_PORT = '3333';
 
@@ -98,7 +100,8 @@ function createWebServerAPI() {
 
 	  socket.on('change_conf', function(msg){
   		conf = JSON.parse(msg);
-	  	console.log('New Configuration: ' + conf);
+  		globalNetObject.checkAndSetParams(conf);
+	  	console.log('New Configuration: ' + JSON.stringify(conf));
 	  });
 
 	  socket.on('touch_edge', function(msg){
@@ -107,12 +110,15 @@ function createWebServerAPI() {
 		var v = _.findWhere(gloablRunningNetObj.netVertices, {id: id});
 		v.triggerSignal();
 	  });
+
+	  socket.on('update_webgl_view', function(msg){
+        io.emit('update_webgl_view', (stateTranslator.translate(gloablRunningNetObj)));
+      });
 	});
 
 	http.listen(serverAPI_PORT, function(){
 	  console.log('listening on localhost:' + serverAPI_PORT);
 	});
 }
-
 
 

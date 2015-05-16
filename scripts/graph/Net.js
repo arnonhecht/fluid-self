@@ -36,7 +36,7 @@ function Net (netStruct, roots, modules) {
         d3Vertice.verticeRef = newVertice;
         return newVertice;
     };
-    
+    console.log("netStruct.vertices:" + netStruct.vertices.length)
     this.netVertices  = _.map(netStruct.vertices, getNetVertice);
     this.netEdges = [];
     this.addEdges(netStruct.edges);
@@ -88,24 +88,6 @@ Net.prototype = {
     getV: function(eId) {
         return _.findWhere(this.netVertices, {id: eId});
     },
-    // findEdge: function(edges, source, target) {
-    //     return _.find(edges, function(e){
-    //         // return (e.source.group==source && e.target.group==target);  -  Was changed along with the removal of D3..
-    //         return (e.source==source && e.target==target);
-    //     });
-    // },
-    // getSignalingVertices: function() {
-    //     return _.filter(this.netVertices, function(v) {
-    //         return v.isSignaling();
-    //     });
-    // },
-    // getActiveVertices: function() {
-    //     return _.filter(this.netVertices, function(v) {
-    //         return v.isActive();
-    //     });
-    // },
-
-
 
     // Public Functions
     // Dynamically change parameters during runtime
@@ -116,12 +98,17 @@ Net.prototype = {
         _.each(this.netEdges, function(e) {
             e.edgeRef.checkAndSetParams(conf.edgeConf);
         });
+        this.resetRoots(conf.roots);
     },
     // Perform external operations. e.g. 
     // 1) setting D3 visual objects 
     // 2) sending data to "Melodi Generator" or DMX components
     prepareExternalDataForNextCycle: function() {
-        this.preCycleOps({allEdges: this.allEdges, allVertices: this.netVertices});
+        if (globalNetStateJson) {
+            this.preCycleOps(globalNetStateJson);    
+        } else {
+            this.preCycleOps({allEdges: this.allEdges, allVertices: this.netVertices});
+        }
     },
 
 

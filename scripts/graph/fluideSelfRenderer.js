@@ -234,40 +234,24 @@ webGLGraphModule = function() {
 		// Callbacks for the Net 
 		me.preCycleOps = function(args) {
 			stats.begin();
+			// var netStateStruct = stateTranslator.translate(args);
 	        _.each(args.allEdges, function(e){
-	        	if (e.edgeRef.isActive() || e.edgeRef.wasActive()) {
+	        	if (e.active=="true" || e.wasActive=="true") {
 	        		setLineFromRepresentation(e, colorActive);
 	        	} else {
 	        		resetLineColors(e);
 	        	}
-	        	if (e.edgeRef.isActiveByTouch()) {
+	        	if (e.sensorActive=="true") {
 	        		setLineFromRepresentation(e, colorOfTouch);
 	        	}
 	        });
 	        _.each(args.allVertices, function(v){
-	        	setVerticeFromEdgeRepresentation(v, (v.isActive() ? colorActive : colorStaticStart));
+	        	setVerticeFromEdgeRepresentation(v, (v.active=="true" ? colorActive : colorStaticStart));
 	        });
-
-	        // _.each(args.allVertices, function(v){
-	        // 	if (v.isActiveByTouch()) {
-	        // 		_.each(_.union(v.outEdges, v.inEdges), function(e){
-	        // 			setLineFromRepresentation(e, colorOfTouch);
-	        // 		});
-	        // 	}
-	        // });
 	        stats.end();
 	    };
 
 	    me.externalActivationCallback = function(args) {
-	    	stats.begin();
-	    	// if (!_.isEmpty(args.edge)) {
-      //   		setLineFromRepresentation(args.edge, colorActive);
-      //   	} else if (!_.isEmpty(args.vertice)) {
-    		// 	setVerticeFromEdgeRepresentation(args.vertice, colorActive);
-      //   	} else {
-      //   		throw "'externalActivationCallback' got bad value";
-      //   	}
-        	stats.end();
 	    };
 
 
