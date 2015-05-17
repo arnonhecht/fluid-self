@@ -17,15 +17,15 @@ function Net (netStruct, roots, modules) {
             },{
                 id: 'NeuralNetLayer',
                 layerCtor: NeuralNetLayer,
-                ctorParams: {
+                ctorParams: _.extend({
                     id: 'NeuralNetLayer',
                     threshold: conf.threshold,
                     verticeProbability: conf.verticeProbability, //0.5,
                     activeEdgesLimit: conf.activeEdgesLimit,
                     rootProbability: conf.rootProbability,
                     initScore: 0,
-                    roots: roots //[0, 2, 14, 25, 33, 27, 21, 20, 22]
-                }
+                    roots: roots
+                }, conf.NeuralNetLayerConf)
             },{
                 id: 'RandomLayer',
                 layerCtor: RandomLayer,
@@ -33,6 +33,13 @@ function Net (netStruct, roots, modules) {
                     id: 'RandomLayer',
                     netStruct: netStruct
                 }, conf.randomLayerConf)
+            },{
+                id: 'OrgasmLayer',
+                layerCtor: OrgasmLayer,
+                ctorParams: _.extend({
+                    id: 'OrgasmLayer',
+                    netStruct: netStruct
+                }, conf.OrgasmLayerConf)
             }]
         };
 

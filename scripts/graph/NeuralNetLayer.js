@@ -14,6 +14,9 @@ function NeuralNetLayer (verticeRef, params) {
     this.rootProbability = params.rootProbability;
     this.activeEdgesLimit = params.activeEdgesLimit;
     this.verticeProbability = params.verticeProbability;
+    this.meanActivityTime = params.meanActivityTime;
+    this.activityTimeDeviation = params.activityTimeDeviation;
+    this.probabilityToActivate = params.probabilityToActivate;
     this.isRoot = _.contains(params.roots, this.verticeRef.id);
 
 
@@ -87,7 +90,7 @@ NeuralNetLayer.prototype = {
 		_.each(this.verticeRef.outVertices, function(v) {
         var currEdgeRef = this.verticeRef.getEdge(this.verticeRef.id, v.id).edgeRef;
      		if (this.wasActive() && this.isSignalOut(this.verticeProbability)) {
-          currEdgeRef.activate();
+          currEdgeRef.activate(getRandomTime(this.meanActivityTime, this.activityTimeDeviation));
      		} 
         if (currEdgeRef.wasActive()) {
           currEdgeRef.setPristine();

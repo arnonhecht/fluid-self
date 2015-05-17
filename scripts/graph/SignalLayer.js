@@ -20,9 +20,10 @@ SignalLayer.prototype = {
     determineNetworkEffect: function (theScoreToAdd)  {
         if (this.active && this.isDone()) {
             this.active = false;
-                var verticePool = _.union(this.verticeRef.outEdges, this.verticeRef.inEdges);
+            var verticePool = _.union(this.verticeRef.outEdges, this.verticeRef.inEdges);
             _.each(verticePool, function(edge) {
-                edge.edgeRef.setActiveByTouch();
+                var activityTime = getRandomTime(this.meanActivityTime, this.activityTimeDeviation);
+                edge.edgeRef.setActiveByTouch(activityTime);
                 if (Math.random() < this.probabilityToActivate && edge.target != this.verticeRef.id) {
                     _.findWhere(this.verticeRef.outVertices, {id: edge.target}).triggerSignal();
                 }
