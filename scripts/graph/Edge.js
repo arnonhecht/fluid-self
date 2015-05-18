@@ -40,9 +40,9 @@ Edge.prototype = {
 
   // API for external Coonsumer
   activate: function(time) {
-    console.log("Trying to activate : " +this.originEdge.source + ", " + this.originEdge.target);
+    // console.log("Trying to activate : " +this.originEdge.source + ", " + this.originEdge.target);
     if (!this.active && !this.isDirty) { // we do not want to reactivate it into eternity
-      console.log("activated: " +this.originEdge.source + ", " + this.originEdge.target);
+      // console.log("activated: " +this.originEdge.source + ", " + this.originEdge.target);
       this.setAcivationParams(time);
     }
   },

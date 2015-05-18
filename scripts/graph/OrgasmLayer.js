@@ -65,7 +65,7 @@ OrgasmLayer.prototype = {
             e.edgeRef.activate(getRandomTime((activationMeanTime), this.activityTimeDeviation));
         }.bind(this));
         setTimeout(function(){
-            console.log("activationMeanTime: " +activationMeanTime);
+            // console.log("activationMeanTime: " +activationMeanTime);
             this.activateOutgoingVertices(outgoingVertices, currDistance-1);
         }.bind(this), (this.meanActivityTime/this.distance) * 1000);
     },
